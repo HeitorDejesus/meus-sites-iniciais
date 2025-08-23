@@ -1,53 +1,33 @@
-const easyQuestions = [
+const questions = [
     {
-        question: "Qual é o resultado de 2 + 2?",
-        options: ["3", "4", "5", "6"],
-        answer: "4"
+        question: "Em qual época o Partenon foi construído?",
+        options: ["550a.C", "740a.C", "450a.C", "460a.C"],
+        answer: "460a.C"
     },
     {
-        question: "A soma dos ângulos internos de um triângulo é?",
-        options: ["90°", "180°", "270°", "360°"],
-        answer: "180°"
+        question: "O Partenon foi construído em homenagem a qual Deus grego?",
+        options: ["Zeus", "Atena", "Afrodite", "Poseidon"],
+        answer: "Atena"
     },
     {
-        question: "Qual é o nome da transformação geométrica que 'espelha' uma figura?",
-        options: ["Translação", "Rotação", "Reflexão", "Dilatação"],
-        answer: "Reflexão"
+        question: "Onde se localiza o Partenon?",
+        options: ["Atenas", "Santorini", "Creta", "Esparta"],
+        answer: "Atenas"
     },
     {
-        question: "Qual o maior país em extensão territorial?",
-        options: ["Canadá", "China", "Rússia", "EUA"],
-        answer: "Rússia"
+        question: "Qual era a capital da Grécia Antiga?",
+        options: ["Creta", "Roma", "Atenas", "Santorini"],
+        answer: "Atenas"
+    },
+    {
+        question: "Quais eram as principais cores das casas gregas?",
+        options: ["Verde e Azul", "Amarelo e Branco", "Azul e Cinza", "Azul e Branco"],
+        answer: "Azul e Branco"
     }
 ];
 
-const hardQuestions = [
-    {
-        question: "Considerando a equação $3x^2 - 10x + 3 = 0$, qual é o valor de uma das raízes?",
-        options: ["x = 1/3", "x = 1", "x = 2", "x = 3"],
-        answer: "x = 3"
-    },
-    {
-        question: "Em um triângulo retângulo, a hipotenusa mede 13cm e um dos catetos mede 5cm. Qual a medida do outro cateto?",
-        options: ["8cm", "10cm", "12cm", "15cm"],
-        answer: "12cm"
-    },
-    {
-        question: "Qual o nome do fenômeno geológico que causa a separação dos continentes?",
-        options: ["Vulcanismo", "Tectonismo", "Deriva Continental", "Erosão"],
-        answer: "Deriva Continental"
-    },
-    {
-        question: "Qual filósofo grego foi discípulo de Platão e tutor de Alexandre, o Grande?",
-        options: ["Sócrates", "Aristóteles", "Pitágoras", "Heráclito"],
-        answer: "Aristóteles"
-    }
-];
-
-let currentQuestions = [];
 let currentQuestionIndex = 0;
 let score = 0;
-let isHardMode = false; // Variável para controlar a dificuldade
 
 const quizContainer = document.getElementById('quiz-container');
 const startButton = document.getElementById('start-btn');
@@ -55,7 +35,7 @@ const introScreen = document.getElementById('intro-screen');
 
 startButton.addEventListener('click', startQuiz);
 
-// Função para embaralhar o array
+// Nova função para embaralhar o array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -68,20 +48,13 @@ function startQuiz() {
     quizContainer.innerHTML = '';
     currentQuestionIndex = 0;
     score = 0;
-
-    if (isHardMode) {
-        currentQuestions = [...hardQuestions]; // Usa perguntas difíceis
-    } else {
-        currentQuestions = [...easyQuestions]; // Usa perguntas fáceis
-    }
-
-    shuffleArray(currentQuestions);
+    shuffleArray(questions);
     showQuestion();
 }
 
 function showQuestion() {
-    if (currentQuestionIndex < currentQuestions.length) {
-        const qData = currentQuestions[currentQuestionIndex];
+    if (currentQuestionIndex < questions.length) {
+        const qData = questions[currentQuestionIndex];
         const questionHtml = `
             <div id="question-screen">
                 <p class="question-text">${qData.question}</p>
@@ -101,7 +74,7 @@ function showQuestion() {
 }
 
 function checkAnswer(selectedOption, selectedAnswer) {
-    const qData = currentQuestions[currentQuestionIndex];
+    const qData = questions[currentQuestionIndex];
     const isCorrect = selectedAnswer === qData.answer;
     
     if (isCorrect) {
@@ -129,15 +102,14 @@ function checkAnswer(selectedOption, selectedAnswer) {
 }
 
 function showResult() {
-    isHardMode = true; // <--- Aqui o modo difícil é ativado para a próxima rodada
-
     const resultHtml = `
         <div id="result-screen">
             <h3>Quiz Concluído!</h3>
-            <p>Você acertou ${score} de ${currentQuestions.length} perguntas.</p>
-            <p>Sua porcentagem de acertos: ${Math.round((score / currentQuestions.length) * 100)}%</p>
+            <p>Você acertou ${score} de ${questions.length} perguntas.</p>
+            <p>Sua porcentagem de acertos: ${Math.round((score / questions.length) * 100)}%</p>
             <button onclick="startQuiz()">Tentar Novamente</button>
         </div>
     `;
     quizContainer.innerHTML = resultHtml;
-}http://127.0.0.1:5500/treino.html
+}
+
